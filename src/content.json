@@ -1,0 +1,43 @@
+{
+  "intro": {},
+  "stories": [
+    {
+      "slug": "everett",
+      "title": "Everett",
+      "art": {
+        "mobile": {
+          "src": "abc.jpg",
+          "crop": {
+            "width": 0.25,
+            "height": 0.125,
+            "x": 0.5,
+            "y": 0.5
+          }
+        }
+      },
+      "body": [
+        {
+          "p": "Duis esse officia ea nostrud excepteur et excepteur irure minim eiusmod reprehenderit quis. Cillum magna anim reprehenderit ut et. Ut sit magna incididunt fugiat eu anim consequat cupidatat."
+        },
+        {
+          "p": "Ipsum consequat ex ex aute. Sunt Lorem nulla occaecat consequat laboris enim laboris reprehenderit enim dolor. Ullamco labore aliquip incididunt incididunt velit tempor deserunt id veniam excepteur do. Ex id magna amet ea mollit deserunt in ullamco pariatur enim amet enim est. Exercitation labore proident commodo eu cillum."
+        },
+        {
+          "p": "Non aliquip non esse cillum consequat ut ipsum pariatur Lorem duis in. Velit aliquip amet consectetur laborum sint et aliquip voluptate aute est. Adipisicing cillum nisi labore veniam laboris est id aliqua dolore elit aliquip sit. Non cupidatat dolore occaecat ad magna commodo dolor adipisicing in dolor ut. Qui reprehenderit irure ad mollit ea. Veniam nulla deserunt ullamco ullamco dolore Lorem ullamco deserunt ad sint. Sunt Lorem nisi tempor et in occaecat pariatur ea irure."
+        },
+        {
+          "p": "Dolor qui ut Lorem Lorem officia irure aute consequat excepteur. Irure pariatur commodo ad consequat cillum officia labore non excepteur magna do cillum occaecat excepteur. Cupidatat aliquip mollit ad nulla cillum. Nisi occaecat exercitation tempor officia aute aliqua ad commodo ullamco cillum elit non laboris id. Labore esse amet do velit magna mollit officia minim sit."
+        },
+        {
+          "p": "Laboris tempor enim aliqua dolore. Lorem nulla nostrud non elit nulla ea laboris. Ex reprehenderit sit elit et magna sunt commodo. Qui anim nostrud excepteur veniam nostrud sint magna duis quis occaecat et laborum occaecat. Laboris ipsum amet veniam eiusmod consequat adipisicing officia."
+        },
+        {
+          "p": "Ea aute ut velit consequat excepteur nostrud sunt qui non proident mollit. Sint magna magna occaecat voluptate proident ut excepteur aute. Pariatur enim laborum qui id fugiat occaecat deserunt mollit sunt."
+        },
+        {
+          "p": "Dolor culpa adipisicing duis dolor consectetur cillum minim. Ipsum anim veniam excepteur tempor aliquip ea ad voluptate excepteur eu. Ipsum reprehenderit in culpa reprehenderit dolor. Officia officia sit voluptate et consectetur dolore occaecat mollit consectetur. Excepteur enim nostrud voluptate pariatur ipsum elit occaecat pariatur. Veniam et aute officia eiusmod irure. Aliquip minim aliqua ullamco qui cillum laborum anim esse consectetur excepteur minim ea est."
+        }
+      ]
+    }
+  ]
+}
