@@ -1,4 +1,5 @@
 import React from "react";
+import { useInView } from "react-intersection-observer";
 import "./index.css";
 
 const getOverlayCSS = (crop) => {
@@ -37,6 +38,7 @@ function Story(props) {
   // TODO: choose which art based on viewport size
   const state = {
     art: props.content.art.mobile,
+    artIsVisible: true,
   };
   const slug = props.content.slug;
 
@@ -60,18 +62,46 @@ function Story(props) {
     }
   };
 
+  const [sentinelArtworkOut, outwardInView] = useInView({ threshold: 0 });
+  const [sentinelArtworkIn, returnInView] = useInView({ threshold: 0 });
+
   // TODO: allow for different content types
   const body = props.content.body.map((b, i) => <p key={slug + i}>{b.p}</p>);
   return (
     <div className="story" ref={scrollContainer} onClick={handlePageClick}>
+      <div
+        ref={sentinelArtworkOut}
+        className="story__sentinel story__sentinel--artwork-fades-out"
+      ></div>
+      <div
+        ref={sentinelArtworkIn}
+        className="story__sentinel story__sentinel--artwork-fades-in"
+      ></div>
       <div className="story__splash">
-        <div className="story__art"></div>
-        <div className="story__overlay" style={getOverlayCSS(state.art.crop)}>
-          <h3>{props.content.title}</h3>
-        </div>
+        <div
+          className="story__art"
+          style={
+            outwardInView
+              ? {
+                  opacity: 0,
+                  transition: `opacity 2s ease-in`,
+                  pointerEvents: "none",
+                }
+              : returnInView
+              ? {
+                  opacity: 1,
+                  transition: `opacity 300ms ease-out`,
+                  pointerEvents: "all",
+                }
+              : {}
+          }
+        ></div>
+        <div
+          className="story__overlay"
+          style={getOverlayCSS(state.art.crop)}
+        ></div>
         <div className="story__splash-spacer"></div>
       </div>
-
       <div className="story__body">{body}</div>
     </div>
   );
