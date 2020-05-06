@@ -5,6 +5,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   scroll-snap-type: x mandatory;
+  scroll-snap-align: center;
   overflow: auto;
   position: relative;
 }

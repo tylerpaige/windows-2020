@@ -3,3 +3,13 @@
 *:after {
   box-sizing: border-box;
 }
+
+html.no-vertical-scroll {
+  overflow: hidden;
+}
+
+html,
+body,
+.stories {
+  scroll-snap-type: y mandatory;
+}

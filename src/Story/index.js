@@ -86,10 +86,23 @@ function Story(props) {
     pointerEvents: "all",
   };
 
+  const handleScroll = (e) => {
+    if (scrollContainer.current.scrollLeft > 0) {
+      document.documentElement.classList.add("no-vertical-scroll");
+    } else {
+      document.documentElement.classList.remove("no-vertical-scroll");
+    }
+  };
+
   // TODO: allow for different content types
   const body = props.content.body.map((b, i) => <p key={slug + i}>{b.p}</p>);
   return (
-    <div className="story" ref={scrollContainer} onClick={handlePageClick}>
+    <div
+      className="story"
+      ref={scrollContainer}
+      onClick={handlePageClick}
+      onScroll={handleScroll}
+    >
       <div
         ref={sentinelHideArtwork}
         className="story__sentinel story__sentinel--artwork-fades-out"
