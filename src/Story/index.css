@@ -85,3 +85,24 @@
   width: 1px;
   left: 100vw;
 }
+
+/*
+  We want the text to max out at 60char/
+  now that means different widths depending on the font-size
+  so we want a media query that's based on the font size...
+  Font size is 2.5rem... 
+  so at
+  
+  so when windowWidth * 0.9 > 60charactersWidth
+*/
+@media screen and (min-width: 55rem) {
+  .story__body {
+    column-width: 100vw;
+    column-gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .story__body > * {
+    padding: 0 calc((100vw - 22em) / 2);
+  }
+}

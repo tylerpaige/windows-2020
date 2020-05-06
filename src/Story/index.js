@@ -66,6 +66,8 @@ function Story(props) {
   const [sentinelHideArtwork, hideArtTriggerInView] = useInView();
   const [sentinelShowArtwork, showArtTriggerInView] = useInView();
 
+  // REVIEW: I don't actually need `hideArtTriggerInView` nor `showArtTriggerInView` to render my app.
+  // I just want to know the latest values and combine them into a single stream
   useEffect(() => {
     if (hideArtTriggerInView) {
       setArtVisibility(false);
@@ -86,7 +88,8 @@ function Story(props) {
     pointerEvents: "all",
   };
 
-  const handleScroll = (e) => {
+  // TODO: this seems suspect, but how else to affect the <html> element?
+  const handleScroll = () => {
     if (scrollContainer.current.scrollLeft > 0) {
       document.documentElement.classList.add("no-vertical-scroll");
     } else {
