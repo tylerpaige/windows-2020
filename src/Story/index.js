@@ -62,8 +62,17 @@ function Story(props) {
     }
   };
 
-  const [sentinelArtworkOut, outwardInView] = useInView({ threshold: 0 });
-  const [sentinelArtworkIn, returnInView] = useInView({ threshold: 0 });
+  const [artIsVisible, setArtVisibility] = useState(true);
+  const [sentinelHideArtwork, hideArtTriggerInView] = useInView();
+  const [sentinelShowArtwork, showArtTriggerInView] = useInView();
+
+  useEffect(() => {
+    if (hideArtTriggerInView) {
+      setArtVisibility(false);
+    } else if (showArtTriggerInView) {
+      setArtVisibility(true);
+    }
+  }, [hideArtTriggerInView, showArtTriggerInView]);
 
   const artworkHiddenCSS = {
     opacity: 0,
@@ -82,23 +91,17 @@ function Story(props) {
   return (
     <div className="story" ref={scrollContainer} onClick={handlePageClick}>
       <div
-        ref={sentinelArtworkOut}
+        ref={sentinelHideArtwork}
         className="story__sentinel story__sentinel--artwork-fades-out"
       ></div>
       <div
-        ref={sentinelArtworkIn}
+        ref={sentinelShowArtwork}
         className="story__sentinel story__sentinel--artwork-fades-in"
       ></div>
       <div className="story__splash">
         <div
           className="story__art"
-          style={
-            outwardInView
-              ? artworkHiddenCSS
-              : returnInView
-              ? artworkVisibleCSS
-              : {}
-          }
+          style={artIsVisible ? artworkVisibleCSS : artworkHiddenCSS}
         ></div>
         <div
           className="story__overlay"
