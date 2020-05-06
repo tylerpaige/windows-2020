@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import "./index.css";
 
@@ -65,6 +65,18 @@ function Story(props) {
   const [sentinelArtworkOut, outwardInView] = useInView({ threshold: 0 });
   const [sentinelArtworkIn, returnInView] = useInView({ threshold: 0 });
 
+  const artworkHiddenCSS = {
+    opacity: 0,
+    transition: `opacity 2s ease-in`,
+    pointerEvents: "none",
+  };
+
+  const artworkVisibleCSS = {
+    opacity: 1,
+    transition: `opacity 300ms ease-out`,
+    pointerEvents: "all",
+  };
+
   // TODO: allow for different content types
   const body = props.content.body.map((b, i) => <p key={slug + i}>{b.p}</p>);
   return (
@@ -82,17 +94,9 @@ function Story(props) {
           className="story__art"
           style={
             outwardInView
-              ? {
-                  opacity: 0,
-                  transition: `opacity 2s ease-in`,
-                  pointerEvents: "none",
-                }
+              ? artworkHiddenCSS
               : returnInView
-              ? {
-                  opacity: 1,
-                  transition: `opacity 300ms ease-out`,
-                  pointerEvents: "all",
-                }
+              ? artworkVisibleCSS
               : {}
           }
         ></div>
