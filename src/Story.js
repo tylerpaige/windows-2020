@@ -1,37 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import "./index.css";
 
-const getOverlayCSS = (crop) => {
+const getOverlayStyle = (crop) => {
   const leftPanelWidth = crop.x - crop.width / 2;
   const rightPanelWidth = 1 - crop.x - crop.width;
   const topPanelHeight = crop.y - crop.height / 2;
   const bottomPanelHeight = 1 - crop.y - crop.height;
 
-  const styles = [
-    { width: 1, height: topPanelHeight, position: "0% 0%" },
-    { width: rightPanelWidth, height: 1, position: "100% 0%" },
-    { width: 1, height: bottomPanelHeight, position: "0% 100%" },
-    { width: leftPanelWidth, height: 1, position: "0% 0%" },
-  ].reduce(
-    (styles, { width, height, position }) => {
-      styles.backgroundImage.push(`linear-gradient(white, white)`);
-      styles.backgroundSize.push(`${width * 100}% ${height * 100}%`);
-      styles.backgroundPosition.push(position);
-      return styles;
-    },
-    {
-      backgroundImage: [],
-      backgroundSize: [],
-      backgroundPosition: [],
-    }
-  );
-
-  styles.backgroundImage = styles.backgroundImage.join(",");
-  styles.backgroundSize = styles.backgroundSize.join(",");
-  styles.backgroundPosition = styles.backgroundPosition.join(",");
-
-  return styles;
+  return {
+    "--overlay-left-width": `${leftPanelWidth * 100}%`,
+    "--overlay-right-width": `${rightPanelWidth * 100}%`,
+    "--overlay-top-height": `${topPanelHeight * 100}%`,
+    "--overlay-bottom-height": `${bottomPanelHeight * 100}%`,
+  };
 };
 
 function Story(props) {
@@ -98,34 +79,43 @@ function Story(props) {
   };
 
   // TODO: allow for different content types
-  const body = props.content.body.map((b, i) => <p key={slug + i}>{b.p}</p>);
+  const body = props.content.body.map((b, i) => {
+    if (b.p) {
+      return <p key={slug + i}>{b.p}</p>;
+    } else if (b.fleuron) {
+      return <hr key={slug + i} className="hr" />;
+    }
+    return null;
+  });
   return (
     <div
-      className="story"
+      className="relative flex h-screen w-full snap-x snap-mandatory flex-nowrap overflow-auto snap-center"
       ref={scrollContainer}
       onClick={handlePageClick}
       onScroll={handleScroll}
     >
       <div
         ref={sentinelHideArtwork}
-        className="story__sentinel story__sentinel--artwork-fades-out"
+        className="left-2screen-minus-px absolute h-full w-px"
       ></div>
       <div
         ref={sentinelShowArtwork}
-        className="story__sentinel story__sentinel--artwork-fades-in"
+        className="left-screen absolute h-full w-px"
       ></div>
-      <div className="story__splash">
+      <div className="flex flex-nowrap">
         <div
-          className="story__art"
+          className="z-1 sticky left-0 top-0 h-full w-screen bg-blue-500"
           style={artIsVisible ? artworkVisibleCSS : artworkHiddenCSS}
         ></div>
         <div
-          className="story__overlay"
-          style={getOverlayCSS(state.art.crop)}
+          className="z-2 -ml-screen relative w-screen snap-center window"
+          style={getOverlayStyle(state.art.crop)}
         ></div>
-        <div className="story__splash-spacer"></div>
+        <div className="w-screen"></div>
       </div>
-      <div className="story__body">{body}</div>
+      <div className="min-w-screen-vw -ml-screen px-margin py-margin text-[2.5rem] columns-auto columns-[90vw] gap-[10vw] [&>*]:snap-center [&>*:first-child]:mt-0 [&>*:last-child]:after:ml-auto [&>*:last-child]:after:mr-[-5vw] [&>*:last-child]:after:block [&>*:last-child]:after:h-px [&>*:last-child]:after:w-[5vw] [&>*:last-child]:after:content-[''] [@media(min-width:55rem)]:[column-width:100vw] [@media(min-width:55rem)]:[column-gap:0] [@media(min-width:55rem)]:pl-0 [@media(min-width:55rem)]:pr-0 [@media(min-width:55rem)]:[&>*]:px-[calc((100vw-22em)/2)]">
+        {body}
+      </div>
     </div>
   );
 }
